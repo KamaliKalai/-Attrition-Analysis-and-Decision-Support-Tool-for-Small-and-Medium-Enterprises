@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-image: url('2.jpeg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: flex-end; /* Align to right */
+      align-items: center;       /* Vertically center */
+      padding-right: 50px;       /* Add some space from right edge */
+    }
+    h2 {
+      color: #004080;
+      text-align: center;
+    }
+    form {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 25px;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 0 10px #666;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background: #0073e6;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <form onsubmit="registerUser(event)">
+    <h2>User Registration</h2>
+    <input type="text" id="regUsername" placeholder="Enter Username" required>
+    <input type="password" id="regPassword" placeholder="Enter Password" required>
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    function registerUser(e) {
+      e.preventDefault();
+      localStorage.setItem("username", document.getElementById("regUsername").value);
+      localStorage.setItem("password", document.getElementById("regPassword").value);
+      alert("Registration successful! Please login.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

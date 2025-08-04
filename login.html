@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('3.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      height: 100vh;
+    }
+
+    .login-container {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004080;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #0073e6;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>User Login</h2>
+    <form onsubmit="loginUser(event)">
+      <input type="text" id="loginUsername" placeholder="Enter Username" required>
+      <input type="password" id="loginPassword" placeholder="Enter Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    function loginUser(e) {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+      const storedUsername = localStorage.getItem("username");
+      const storedPassword = localStorage.getItem("password");
+
+      if (username === storedUsername && password === storedPassword) {
+        alert("Login successful!");
+        window.location.href = "employee-form.html";
+      } else {
+        alert("Invalid username or password!");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Analysis Result</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: url('5.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; /* Aligns content to the right */
+      padding-right: 5%;
+    }
+    .result-box {
+      background: rgba(255, 255, 255, 0.95);
+      width: 500px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h2, h3 {
+      text-align: center;
+      color: #004080;
+    }
+    .highlight {
+      background-color: #d1ffd1;
+      font-weight: bold;
+      padding: 12px;
+      border: 2px solid #28a745;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-box">
+    <h2>Cost Analysis Result</h2>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("employeeData"));
+
+    const retentionCost = data.requestedSalary * 12;
+    const hiringCost = (data.marketSalary * 12) + data.recruitmentCost;
+    const fullTimeCost = data.marketSalary * 12;
+    const partialCost = data.partialSalary * data.staffingMonths;
+    const subsequentCost = (data.marketSalary * (12 - data.staffingMonths)) + data.recruitmentCost;
+    const totalPartialAndSubsequent = partialCost + subsequentCost;
+
+    const minCost = Math.min(retentionCost, hiringCost, fullTimeCost, totalPartialAndSubsequent);
+    let bestOption = "";
+
+    if (minCost === retentionCost) bestOption = "Retaining Current Employee";
+    else if (minCost === hiringCost) bestOption = "Hiring New Employee";
+    else if (minCost === fullTimeCost) bestOption = "Full-Time Staffing";
+    else bestOption = "Partial + Subsequent Hiring";
+
+    document.getElementById("result").innerHTML = `
+      <h3>Employee: ${data.empName} (${data.empId})</h3>
+      <p><strong>City:</strong> ${data.city}</p>
+      <p><strong>Role:</strong> ${data.role}</p><hr>
+      <p><strong>Retaining Current Employee:</strong> ₹${retentionCost}</p>
+      <p><strong>Hiring New Employee:</strong> ₹${hiringCost}</p>
+      <p><strong>Full-Time Staffing:</strong> ₹${fullTimeCost}</p>
+      <p><strong>Partial + Subsequent Hiring:</strong> ₹${totalPartialAndSubsequent}</p>
+      <hr>
+      <div class="highlight">Best Option: ${bestOption} (Cost: ₹${minCost})</div>
+    `;
+  </script>
+</body>
+</html>
